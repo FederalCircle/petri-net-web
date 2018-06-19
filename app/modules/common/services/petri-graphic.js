@@ -19,7 +19,8 @@
             getNodes: getNodes,
             remove: remove,
             startSimulation: startSimulation,
-            loadNet: loadNet
+            loadNet: loadNet,
+            getNetConfig: getNetConfig
         };
 
         // Groups
@@ -234,6 +235,23 @@
                 var target = getElementById(arc.targetId);
                 newArc(source, target, arc.value, arcConfig);
             });
+        }
+
+        function getNetConfig() {
+            var netConfig = petriLogicService.getNetConfig();
+            angular.forEach(netConfig.places, function(place, id) {
+                var placeElement = getElementById(id);
+                place.label = placeElement.label;
+                place.positionX = placeElement.parent().cx();
+                place.positionY = placeElement.parent().cy();
+            });
+            angular.forEach(netConfig.transitions, function(transition, id) {
+                var transitionElement = getElementById(id);
+                transition.label = transitionElement.label;
+                transition.positionX = transitionElement.parent().cx();
+                transition.positionY = transitionElement.parent().cy();
+            });
+            return netConfig;
         }
     }
 

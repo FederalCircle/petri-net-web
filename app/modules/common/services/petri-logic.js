@@ -16,7 +16,8 @@
             isValidArc: isValidArc,
             remove: remove,
             reset: reset,
-            startSimulation: startSimulation
+            startSimulation: startSimulation,
+            getNetConfig: getNetConfig
         };
 
         var _places = {};
@@ -280,6 +281,14 @@
             _places = {};
             _transitions = {};
             _arcs = {};
+        }
+
+        function getNetConfig() {
+            return angular.copy({
+                places: _places,
+                transitions: _transitions,
+                arcs: _arcs
+            })
         }
     }
 

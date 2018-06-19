@@ -29,6 +29,7 @@
 
             // Properties
             transition.petriType = 'transition'
+            transition.label = label;
             transition.inputs = [];
             transition.outputs = [];
             // Methods

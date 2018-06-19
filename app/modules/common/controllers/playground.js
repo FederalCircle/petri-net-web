@@ -194,7 +194,12 @@
         }
 
         function downloadNetFile() {
-            alert('To do...');
+            var data = petriGraphicService.getNetConfig();
+            var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+            var link = document.createElement('a');
+            link.setAttribute("href", dataStr);
+            link.setAttribute("download", "petri-net.json");
+            link.click();
         }
 
         function loadNetFile(file, errFiles) {

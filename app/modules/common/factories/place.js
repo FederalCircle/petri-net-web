@@ -20,6 +20,7 @@
             var place = _drawPlace();
             // Properties
             place.petriType = 'place';
+            place.label = label;
             // Methods
             place.getTokens = getTokens;
             place.setTokens = setTokens;
