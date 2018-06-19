@@ -5,19 +5,32 @@
             "label": "P1",
             "tokens": 2,
             "positionX": 100,
-            "positionY": 100
+            "positionY": 200
         },
         "P2": {
             "label": "P2",
             "tokens": 0,
-            "positionX": 200,
-            "positionY": 100
+            "positionX": 300,
+            "positionY": 200
         }
     },
     "transitions": {
         "T1": {
-            "inputs": ["P1"],
-            "outputs": ["P2"]
+            "label": "T1",
+            "positionX": 200,
+            "positionY": 200
+        }
+    },
+    "arcs": {
+        "A1": {
+            "sourceId": "P1",
+            "targetId": "T1",
+            "value": 1
+        },
+        "A2": {
+            "sourceId": "T1",
+            "targetId": "P2",
+            "value": 2
         }
     }
 }
