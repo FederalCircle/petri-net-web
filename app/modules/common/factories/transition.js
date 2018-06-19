@@ -24,7 +24,7 @@
          * @description
          * description...
          **/
-        function newTransition(container, x, y, label) {
+        function newTransition(container, x, y, label, id) {
             var transition = _drawTransition();
 
             // Properties
@@ -62,7 +62,7 @@
                     .move(x, y)
                     .attr(style)
                     .addClass('transition');
-
+                transitionElement.id(id);
                 return transitionElement;
             }
 

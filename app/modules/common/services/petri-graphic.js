@@ -92,8 +92,7 @@
 
             var placeElement = placeFactory.newPlace(_places, center.x, center.y, label, tokens, config.id);
             // Informs the logic service that a new place was created
-            var id = config.id || placeElement.node.id;
-            petriLogicService.addPlace(id, {
+            petriLogicService.addPlace(placeElement.node.id, {
                 tokens: tokens
             });
 
@@ -109,10 +108,13 @@
          * @description
          * description...
          **/
-        function newTransition(x, y, label) {
+        function newTransition(label, config) {
             var center = _centerPosition();
+            config = config || {};
+            center.x = config.x || center.x;
+            center.y = config.y || center.y;
 
-            var transitionElement = transitionFactory.newTransition(_transitions, center.x, center.y, label);
+            var transitionElement = transitionFactory.newTransition(_transitions, center.x, center.y, label, config.id);
             // Informs the logic service that a new transition was created
             petriLogicService.addTransition(transitionElement.node.id, {});
 
@@ -138,16 +140,17 @@
             };
         }
 
-        function newArc(source, target, value) {
+        function newArc(source, target, value, config) {
             source = source.parent().first();
             target = target.parent().first();
             var sourceType = source.petriType;
             var sourceId = source.node.id;
             var targetType = target.petriType;
             var targetId = target.node.id;
+            config = config || {};
 
             if( petriLogicService.isValidArc(sourceType, targetType) ) {
-                var newConn = arcFactory.newArc(_arcs, source, target, value);
+                var newConn = arcFactory.newArc(_arcs, source, target, value, config.id);
 
                 petriLogicService.addArc(newConn.node.id, {
                     sourceId: sourceId,
@@ -214,6 +217,22 @@
                     y: place.positionY
                 };
                 newPlace(place.label, place.tokens, placeConfig);
+            });
+            angular.forEach(netConfig.transitions, function (transition, id) {
+                var transitionConfig = {
+                    id: id,
+                    x: transition.positionX,
+                    y: transition.positionY
+                };
+                newTransition(transition.label, transitionConfig);
+            });
+            angular.forEach(netConfig.arcs, function (arc, id) {
+                var arcConfig = {
+                    id: id
+                };
+                var source = getElementById(arc.sourceId);
+                var target = getElementById(arc.targetId);
+                newArc(source, target, arc.value, arcConfig);
             });
         }
     }

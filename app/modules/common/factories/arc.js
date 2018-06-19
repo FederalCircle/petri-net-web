@@ -26,7 +26,7 @@
          * @description
          * Creates an arrow between two elements.
          **/
-        function newArc(container, source, target, value) {
+        function newArc(container, source, target, value, id) {
             var arc = _drawArc();
 
             // Properties
@@ -67,6 +67,7 @@
                     .stroke('#000')
                     .attr(configFactory.get().nodeStyle.arc)
                     .addClass('arc');
+                newArcElement.id(id);
                 newArcElement.marker('end', 10, 6, function(add) {
                     add.path("M 0 0 L 6 3 L 0 6 z");
                 });
