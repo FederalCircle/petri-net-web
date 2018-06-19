@@ -16,6 +16,7 @@
         vm.removeElement = removeElement;
         vm.clear = clear;
         vm.startSimulation = startSimulation;
+        vm.downloadNetFile = downloadNetFile;
         vm.loadNetFile = loadNetFile;
 
         vm.backgroundText = 'PetriNet Playground';
@@ -192,12 +193,15 @@
             petriGraphicService.newDraw('Paper');
         }
 
+        function downloadNetFile() {
+            alert('To do...');
+        }
+
         function loadNetFile(file, errFiles) {
             var fr = new FileReader();
-
             fr.onload = function () {
                 var data = JSON.parse(fr.result);
-                console.log(data);
+                petriGraphicService.loadNet(data);
             }
             fr.readAsText(file);
         }

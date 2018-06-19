@@ -16,7 +16,7 @@
 
         return factory;
 
-        function newPlace(container, x, y, label, tokens) {
+        function newPlace(container, x, y, label, tokens, id) {
             var place = _drawPlace();
             // Properties
             place.petriType = 'place';
@@ -53,7 +53,7 @@
                     .move(x, y)
                     .attr(style)
                     .addClass('place');
-
+                placeElement.id(id);
                 return placeElement;
             }
 

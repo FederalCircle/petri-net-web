@@ -18,7 +18,8 @@
             getElements: getElements,
             getNodes: getNodes,
             remove: remove,
-            startSimulation: startSimulation
+            startSimulation: startSimulation,
+            loadNet: loadNet
         };
 
         // Groups
@@ -82,13 +83,17 @@
          * @description
          * description...
          **/
-        function newPlace(label, tokens) {
+        function newPlace(label, tokens, config) {
             var center = _centerPosition();
             tokens = tokens || 0;
+            config = config || {};
+            center.x = config.x || center.x;
+            center.y = config.y || center.y;
 
-            var placeElement = placeFactory.newPlace(_places, center.x, center.y, label, tokens);
+            var placeElement = placeFactory.newPlace(_places, center.x, center.y, label, tokens, config.id);
             // Informs the logic service that a new place was created
-            petriLogicService.addPlace(placeElement.node.id, {
+            var id = config.id || placeElement.node.id;
+            petriLogicService.addPlace(id, {
                 tokens: tokens
             });
 
@@ -197,6 +202,18 @@
                             });
                         }
                     });
+            });
+        }
+
+        function loadNet(netConfig) {
+            newDraw();
+            angular.forEach(netConfig.places, function (place, id) {
+                var placeConfig = {
+                    id: id,
+                    x: place.positionX,
+                    y: place.positionY
+                };
+                newPlace(place.label, place.tokens, placeConfig);
             });
         }
     }

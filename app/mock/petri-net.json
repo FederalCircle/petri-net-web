@@ -1,0 +1,23 @@
+{
+    "name": "My petri net",
+    "places": {
+        "P1": {
+            "label": "P1",
+            "tokens": 2,
+            "positionX": 100,
+            "positionY": 100
+        },
+        "P2": {
+            "label": "P2",
+            "tokens": 0,
+            "positionX": 200,
+            "positionY": 100
+        }
+    },
+    "transitions": {
+        "T1": {
+            "inputs": ["P1"],
+            "outputs": ["P2"]
+        }
+    }
+}
